@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WikenaStore</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+<?php
+    session_start();
+?>
+    <div class="header">
+    <nav>
+        <div class="wrapper">
+            <div class="logo"><a href=''>WikenaStore</a></div>
+            <div class="menu">
+                <ul id="MenuItems">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#Products">Products</a></li>
+                    <li><a href="#latest">Latest</a></li>
+                    <li><a href="#exclusively">Exclusively</a></li>
+                    <li><a href="#Account">Account</a></li>
+                    <?php 
+                if(!empty($_SESSION['username'])){
+                    echo'<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
+                } else {
+                    echo'<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="registrasi.php">Register</a></li>';
+                } ?>
+                </ul>
+            </div> 
+        </div>
+        <img src="https://e7.pngegg.com/pngimages/297/333/png-clipart-amazon-com-online-shopping-shopping-cart-shopping-bags-trolleys-shopping-cart.png" width="50px" height="100px"/>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAARVBMVEX///8AAAANDQ2GhoZeXl4qKirPz8+KiorU1NS6urpqamqlpaWdnZ2WlpaRkZEREREvLy/CwsK0tLStra0fHx8aGhohISGb2hODAAABAklEQVR4nO3dy3HDMAxFUUSObMuW/I3Tf6mpIQsMBtQ5Fby7JTlSBAAAAAAAAAAAAABAL+s8jWveIravsd3iXj0h2RTVC9Ip7E9hfwr7U9ifwv4U9qewv5irFyR7xFI9Idkz4ng6jOt0rj4GAwAAAAAAYCjL5Xtcl1fEu/oKM9k1fqonJPvs4KVC9YB0CvtT2J/C/hT2p7A/hf3toPBTvSDZb1yrJyR7R7yGPqdZqo/BAAAAAAAAGMp56G8MHSOe1VeYyZZ4VE9INu/gpUL1gHQK+1PYn8L+FPansD+F/e2gcKpekOwet+oJydaIbeh/dq3Vx2AAAAAAAAAAAAAAAP/0B2wtQ4n+W64CAAAAAElFTkSuQmCC" class="menu-icon" 
+        onclick="menutoggle()"/>
+    </nav>
+
+        <div class="left">
+            <?php if (!empty($_SESSION['username'])){ ?>
+            <div style="clear;both; text-align; right; margin-right: 20px;"><h3>Selamat datang <span id="name"><?php echo $_SESSION['nama']?></span></h3></div>
+        <?php } ?>
+        </div>
+
+    <section id="home">
+    <div class="row">
+        <div class="col-2">
+            <h1>Give Your Workout<br>A New Style!</h1>
+            <p>Success isn't always about greatnes. it's about consistency. Consistent <br>hard work gains succes. Greatness will come. </p>
+            <a href="" class="tbl-biru">Explore Now &#8594;</a>
+        </div>
+        <div class="col-2">
+            <img src="data:image/jpeg;base64,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"/>
+        </div>
+    </div>
+    </section>
+
+    <!--featured categories-->
+    
+    <div class="categories">
+    
+        <div class="small-container">
+            <div class="row">
+            <div class="col-3">
+                <img src="https://github.com/wikenuranisa1960100/wikenur/blob/main/IMG20210624131355.jpg?raw=true"/>
+            </div>
+            <div class="col-3">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%2010.jpg?raw=true"/>
+            </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!--featured products-->
+    
+    <div class="small-container">
+        <section id="Products">
+        <h2 class="title">Featured Products</h2>
+        <div class="row">
+            <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%201.jpg?raw=true"/>
+                <h4>Konector Bunga</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>Rp.10.000</p>
+            </div>
+             <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%202.jpg?raw=true"/>
+                <h4>Konector Natural</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                </div>
+                <p>Rp.7.000</p>
+            </div>
+             <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%203.jpg?raw=true"/>
+                <h4>Konector bulat</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <p>Rp.10.000</p>
+            </div>
+        </div>
+        </section>
+        <section id="latest">
+        <h2 class="title">Latest Products</h2>
+        <div class="row">
+            <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%204.jpg?raw=true"/>
+                <h4>Konector kecil</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                </div>
+                <p>Rp.5.000</p>
+            </div>
+             <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%205.jpg?raw=true"/>
+                <h4>Konector kecil</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                </div>
+                <p>Rp.5.000</p>
+            </div>
+             <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%206.jpg?raw=true"/>
+                <h4>Konector Renda bunga</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <p>Rp.10.000</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/wikenur/blob/main/IMG20210624131355.jpg?raw=true"/>
+                <h4>Konector Melati Gantung</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <p>Rp.10.000</p>
+            </div>
+             <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%208.jpg?raw=true"/>
+                <h4>Konector Renda</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                </div>
+                <p>Rp.7.000</p>
+            </div>
+             <div class="col-4">
+                <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%209.jpeg?raw=true"/>
+                <h4>Konector Bunga</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <p>Rp.10.000</p>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!--offer-->
+    <section id="exclusively">
+    <section id="Skills">
+            <div class="tengah">
+                <div class="kolom">
+                    <p class="deskripsi">Exclusively Available on WikenaStore</p>
+                    <p class="bayi">Kupluk Bayi</p>
+                    <p class="bayi">Rp. 25.000</p>
+                    <p><a href="" class="tbl-biru">Buy Now &#8594;</a></p>
+                </div>
+
+                <div class="sk-list">
+                    <div class="kartu-sk">
+                        <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%2013.jpeg?raw=true"/>
+                    </div>
+                     <div class="kartu-sk">
+                        <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/img%2014.jpeg?raw=true"/>
+                    </div>
+                     
+                </div>
+            </div>
+    </section>
+    </section>
+
+    <!--Testimonial-->
+    <div class="testimonial">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>konektornya sangat nyaman dipakai, bahanya bagus dan pembuatanya rapi. Dari segi harga juga sangat terjangkau</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                    </div>
+                    <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/foto%201.jpg?raw=true"/>
+                    <h3>Shinta Fauziah</h3>
+                </div>
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Saya telah membeli 5 konektor ditoko ini, dan alhamdulilah saya puas dengan barang dan pelayanannya.</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <img src="https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/foto%202.jpg?raw=true"/>
+                    <h3>Diana Qayyumi Purnamasari</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--brands-->
+    <div class="brands">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-5">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU9Mt09GsJxeR_F1Ld9f9YjHFHQSSkFXwYDQ&usqp=CAU"/>
+                </div>
+                <div class="col-5">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzBpyWfsNiWyr4DpcOLHPnguLH-SHXK5hFPQ&usqp=CAU"/>
+                </div>
+                <div class="col-5">
+                    <img src="data:image/png;base64,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"/>
+                </div>
+                <div class="col-5">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtDYgy5HXoKbbf4_T4dJIxkb4Gm1DtQe1HWw&usqp=CAU"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <section id="Account">
+     <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download</h3>
+                    <p>Download Now</p>
+                    <div class="app-logo">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD5sWGVcEyqv7CFBwgj96aD0yMqdqA6k2NgA&usqp=CAU"/>
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <h3>Made By:</h3>
+                    <p>Wike Nur Anisa</p>
+                    <div class="app-logo">
+                        <img src=" https://github.com/wikenuranisa1960100/19610100-wikenuranisa/blob/main/IMG-20181220-WA0102.jpg?raw=true"/>
+                    </div>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog</li>
+                        <li>Return Policy</li>
+                        <li>Join affliate</li>
+                    </ul>
+                </div>
+                 <div class="footer-col-4">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2021-website wike</p>
+        </div>
+    </div>
+    
+    </section>
+
+    <script>
+        var MenuItems = document.getElementyById("MenuItems");
+
+        MenuItems.style.maxHeight = "0px";
+
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else{
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+
+</body>
+</html>
