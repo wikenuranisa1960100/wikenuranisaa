@@ -30,7 +30,7 @@
 <body>
 	<?php
     if (!empty ($_SESSION['username'])){
-        header('Location :index.php');
+        header('Location :indexx.php');
     }
     ?>
 	<div class="limiter">
